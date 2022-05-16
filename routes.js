@@ -26,13 +26,12 @@ function routes(app) {
         cards.push({id: Math.random().toString(), ...card});
         res.send('Card created');
     })
+
+    app.patch('/cards/:cardId', (req, res) => {
+        const cardId = req.params.cardId;
+        const card = req.body;
+        cards = cards.map(el => el.id === cardId ? ({...card, id: el.id}) : el);
+        res.send('Card updated');
+    })
 }
-
-app.patch('/cards/:cardId', (req, res) => {
-    const cardId = req.params.cardId;
-    const card = req.body;
-    cards = cards.map(el => el.id === cardId ? ({...card, id: el.id}) : el);
-    res.send('Card updated');
-})
-
 module.exports = routes;
